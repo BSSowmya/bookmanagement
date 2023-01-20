@@ -1,0 +1,40 @@
+.book{
+width: 70%;
+height: 70%;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: cadetblue;
+flex-direction: column;
+}
+
+.book-details{
+height: 90%;
+width :100%;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+}
+.book-tab,thead,th,tbody,td,tr{
+    border: 1px solid black;
+}
+.book-tab{
+    background-color: aqua;
+}
+.book-actions{
+    width:100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content:right;
+    background-color: red;
+   margin-bottom: 0;
+}
+.book-actions >button{
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.book-tab >td >button{
+    padding: 5px;
+}
