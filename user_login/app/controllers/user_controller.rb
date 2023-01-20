@@ -13,7 +13,7 @@ def show
         v = User.find(params[:id])
         render json:v
     else
-        render json: "User not found."
+        render json: "false"
     end
 end
 
@@ -22,9 +22,9 @@ def create
     puts params[:password]
     if !v
         u = User.create('u_email': params[:u_email],'u_name': params[:u_name],'password': params[:password])
-    render json: "User account created"
+    render json: "true"
     else
-        render json: "User details incorrect, account not created"
+        render json: "false"
     end
 end
 
@@ -33,9 +33,9 @@ def update
     if bol
         u = User.find_by_id(params[:id])
         u.update('u_email': params[:u_email],'u_name': params[:u_name],'password': params[:password])
-        render json: "User account details updated"
+        render json: "true"
     else
-        render json: "User account not found"
+        render json: "false"
     end
 end
 
@@ -44,9 +44,9 @@ def destroy
     if bol
         u = User.find_by_id(params[:id])
         u.destroy
-        render json: "User account deleted"
+        render json: "true"
     else
-        render json: "User account not found"
+        render json: "false"
     end
 end
 end

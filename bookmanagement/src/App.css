@@ -4,5 +4,10 @@ height:100%;
 padding: 0;
 margin: 0;
 background-color: rgb(167, 167, 45);
-
+background-image: url("https://tse4.mm.bing.net/th?id=OIP.UjvoMdFZfsPmxPxVcw9SRgHaE9&pid=Api&P=0");
+background-repeat: no-repeat;
+background-size: cover;
+display: flex;
+justify-content: center;
+align-items: center;
 }

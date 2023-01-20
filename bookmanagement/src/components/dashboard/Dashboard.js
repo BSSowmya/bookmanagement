@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import './dashboard.css'
 
 function Dashboard(){
-let[action,setAction]= useState(0);
 let[data,setData] = useState([]);
 const navigate = useNavigate();
 useEffect(()=>{
@@ -18,27 +17,43 @@ fetchData();
 },[])
 
 const handleAdd =(e)=>{
-    let action = e.target.value;
-    if (action ==1){
-    navigate('/addbook')
+      navigate('/addbook')
 
-}
 }
 const handleUpdate =(e)=>{
     navigate('/updatebook',{
         state: {id:e.target.value
         },})
-    } 
+ } 
+ function refreshPage() {
+    window.location.reload(false);
+  }
+const handleDelete=async(e)=>{
+    let id = e.target.value;
+    let path = '/book/'+id 
+    console.log(path)
+    let res = await axios.delete(path)
+    console.log(res.data)
+    if (res.data){
+        navigate('/dashboard')
+        refreshPage();
+    }
 
+}
 
-
+const handelLogout =async()=>{
+    let response =await axios.get('/logout');
+    if (response.data){
+        navigate('/')
+    }
+}
 
 return(
 <>
 <div className="book">
 <div className="book-actions">
 <button value="1" onClick={handleAdd}>add book</button>
-<button value="4">logout</button>
+<button value="4" onClick={handelLogout}>logout</button>
 </div>
 <div className="book-details">
 <table className="book-tab">
@@ -46,17 +61,18 @@ return(
     <th>Book Name</th>
     <th>Book Author</th>
     <th>Book Quantity</th>
+    <th>Actions</th>
     </thead>
    <tbody>
 { data.length ? data.map(ele=>(
 
     <tr id={ele.id}>
     <td >{ele.b_name}</td>
-    <td>{ele.b_name}</td>
-    <td>{ele.b_name}</td>
+    <td>{ele.b_auth}</td>
+    <td>{ele.b_quantity}</td>
     <td>
     <button value={ele.id} onClick={handleUpdate}>update book</button>
-    <button value={ele.id}>delete book</button></td>
+    <button value={ele.id}  onClick={handleDelete}>delete book</button></td>
     </tr>
     
 )): <tr>no data</tr>

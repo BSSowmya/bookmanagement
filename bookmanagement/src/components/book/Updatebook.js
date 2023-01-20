@@ -3,6 +3,7 @@ import { useEffect,useState} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Updatebook(props){
+    let[id,setId] = useState(0);
    let [updatedata, setupdateData] =useState([]);
    let navigate =useNavigate();
    let[status,seStatus]= useState(false);
@@ -17,6 +18,7 @@ function Updatebook(props){
 useEffect(()=>{
 const fetchData=async()=>{
     let id = location.state.id.toString();
+    setId(location.state.id);
     let path = '/book/'+id 
     console.log(path)
     let res = await axios.get(path)
@@ -41,13 +43,15 @@ const boxStyle ={
 }
 const handleChange =(e)=>{
     setupdateData({
-        ...updateData,[e.target.name]:e.target.value
+        ...updatedata,[e.target.name]:e.target.value
     })
+   
 }
 const updateData =async ()=>{
-    let id = location.state.id.toString();
-     let path = '/book/'+id 
-    let res = await axios.put(path,data)
+   let path = '/book/'+id
+   console.log(updatedata)
+    let res = await axios.put(path,updatedata)
+    console.log(res.data)
     if(res.data){
         navigate('/dashboard') 
 
@@ -59,11 +63,12 @@ return(
 <>
 {
 !data.nil  ? (
-<div style={boxStyle}>
-<input type="text" value={data.id} disabled/>
-<input type="text" defaultValue={data.b_name} onChange={handleChange}/>
-<input type="text" defaultValue={data.b_auth} onChange={handleChange}/>
-<input type="text" defaultValue={data.b_quantity} onChange={handleChange}/>
+<div className="header">
+<h4>Please enter all the details :</h4>
+<input type="text"  name="id" value={data.id} disabled/>
+<input type="text" name="b_name" placeholder= {data.b_name} onChange={handleChange}/>
+<input type="text" name ="b_auth" placeholder={data.b_auth}  onChange={handleChange}/>
+<input type="text"  name = "b_quantity" placeholder={data.b_quantity}  onChange={handleChange} />
 <input type="submit" onClick={updateData}/>
 </div>):<div>Invalid Data</div>}
 </>

@@ -18,13 +18,11 @@ async function sendData(){
     console.log(data)
     let res = await axios.post('/login',data);
     console.log(res.data)
-    setStatus(res.data) 
-    if (status){
-        navigate('/dashboard')
-
+    
+    if (res.data){
+        navigate('/dashboard',)
     }
     
-
 }
 
 return(

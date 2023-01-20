@@ -18,7 +18,7 @@ def show
     v = Book.find(params[:id])
     render json:v
     else
-    render json: "Record not found"
+    render json: "false"
     end
     else
     render json: "Please login to see book list"
@@ -32,12 +32,12 @@ if !current_user.nil?
     puts params[:bookname]
     if !v
     b = Book.create('b_name': params[:b_name],'b_auth': params[:b_auth],'b_quantity': params[:b_quantity])
-    render json: "Data recorded"
+    render json: "true"
     else 
-    render json: "Data not recorded"
+    render json: "false"
     end
 else
-    render json: "Please login to add a new book"
+    render json: "false"
 end   
 
 end
@@ -50,12 +50,12 @@ if !current_user.nil?
     if bol
         b = Book.find_by_id(params[:id])
         b.update('b_name': params[:b_name],'b_auth': params[:b_auth],'b_quantity': params[:b_quantity])
-        render json: "Data updated"
+        render json: "true"
     else
-        render json: "Data not found"
+        render json: "false"
     end
 else
-    render json: "Please login to update the book details"
+    render json: "false"
 end
 end
 
@@ -66,9 +66,9 @@ def destroy
         if bol
              b = Book.find_by_id(params[:id])
             b.destroy
-            render json: "Data deleted"
+            render json: "true"
         else
-            render json: "Data not found"
+            render json: "false"
         end
     else
         render json: "Please login to delete the book"

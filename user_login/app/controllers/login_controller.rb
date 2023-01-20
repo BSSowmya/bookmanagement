@@ -9,20 +9,20 @@ end
   def create
     u = User.find_by('u_email': params[:u_email])
     if u.nil?
-        render json:"User account not found"
+        render json:"false"
     else 
         if u.authenticate(params[:password])
             session[:current_user_id] = u.id
-            render json: "Logged in successfully"
+            render json: "true"
         else
-            render json: "Authentication failed"
+            render json: "false"
         end
   end
 end
 
 def destroy
     session.delete(:current_user_id)
-    render json: "Logged out successfully"
+    render json: "true"
 end
 
 end
